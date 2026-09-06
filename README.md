@@ -12,7 +12,7 @@ GraphQLの仕組みを学ぶための練習用リポジトリです。[Apollo Se
 ## セットアップ
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## 起動方法
@@ -70,6 +70,7 @@ curl -X POST http://localhost:4000/ \
 ## 技術スタック
 
 - Node.js
+- pnpm
 - [apollo-server](https://www.npmjs.com/package/apollo-server) (v3)
 
 `apollo-server`(v3)はサポート終了(EOL)パッケージです。学習用にそのまま利用していますが、新規に作る場合は後継の[`@apollo/server`](https://www.npmjs.com/package/@apollo/server)(v4)の利用が推奨されています。

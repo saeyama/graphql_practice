@@ -2,8 +2,6 @@
 
 GraphQLの仕組みを学ぶための練習用リポジトリです。[Apollo Server](https://www.apollographql.com/docs/apollo-server/)を使って、最小構成のGraphQL APIを立てています。
 
-参考記事: [GraphQLとは(Qiita)](https://qiita.com/tsubasa_k0814/items/c6ef7e3c668007f920a6)
-
 ## できること
 
 - プログラミング言語とその作者の一覧を取得する(`Query`)

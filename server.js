@@ -1,21 +1,10 @@
+const fs = require("fs");
+const path = require("path");
 const { ApolloServer, gql } = require("apollo-server");
 
-const typeDefs = gql`
-  type Language {
-    name: String
-    creator: String
-  }
+const DATA_FILE = path.join(__dirname, "data.json");
 
-  type Query {
-    languages: [Language]
-  }
-
-  type Mutation {
-    addLanguage(name: String!, creator: String!): Language
-  }
-`;
-
-const languages = [
+const seedLanguages = [
   {
     name: "Ruby",
     creator: "まつもとゆきひろ"
@@ -34,6 +23,36 @@ const languages = [
   },
 ];
 
+function loadLanguages() {
+  if (!fs.existsSync(DATA_FILE)) {
+    saveLanguages(seedLanguages);
+    return seedLanguages;
+  }
+  const raw = fs.readFileSync(DATA_FILE, "utf-8");
+  return JSON.parse(raw);
+}
+
+function saveLanguages(languages) {
+  fs.writeFileSync(DATA_FILE, JSON.stringify(languages, null, 2));
+}
+
+let languages = loadLanguages();
+
+const typeDefs = gql`
+  type Language {
+    name: String
+    creator: String
+  }
+
+  type Query {
+    languages: [Language]
+  }
+
+  type Mutation {
+    addLanguage(name: String!, creator: String!): Language
+  }
+`;
+
 const resolvers = {
   Query: {
     languages: () => languages
@@ -42,6 +61,7 @@ const resolvers = {
     addLanguage: (_, { name, creator }) => {
       const newLanguage = { name, creator };
       languages.push(newLanguage);
+      saveLanguages(languages);
       return newLanguage;
     }
   }
